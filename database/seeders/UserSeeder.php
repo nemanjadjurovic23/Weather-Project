@@ -15,24 +15,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $amount = $this->command->getOutput()->ask('How many users would you like to create?', 500);
-        $password = $this->command->getOutput()->ask('What is your password?', 'password');
 
-        $faker = Factory::create();
+        $email = $this->command->getOutput()->ask('What is your email?');
 
-        $this->command->getOutput()->progressStart($amount);
-
-        for ($i = 0; $i < $amount; $i++) {
+        if (User::where('email', $email)->exists()) {
+            $this->command->getOutput()->error('Email already exists!');
+        } else {
+            $name = $this->command->getOutput()->ask('What is your name?');
+            $password = $this->command->getOutput()->ask('What is your password?', 'password');
             User::create([
-                'name' =>  $faker->name,
-                'email' => $faker->email,
+                'name' => $name,
+                'email' => $email,
                 'password' => Hash::make($password),
             ]);
 
-            $this->command->getOutput()->progressAdvance();
-        }
+            $this->command->getOutput()->info('You have been successfully registered!');
 
-        $this->command->getOutput()->progressFinish();
+        }
 
     }
 }
