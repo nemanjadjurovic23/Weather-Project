@@ -13,20 +13,27 @@ class UserWeatherSeeder extends Seeder
     public function run(): void
     {
         $city = $this->command->getOutput()->ask('What is your city?');
-        if($city == null) {
+        if ($city == null) {
             $this->command->getOutput()->error('You have not entered a city name');
         }
 
         $cityTemperature = $this->command->getOutput()->ask('What is your city temperature?');
-        if($cityTemperature == null) {
+        if ($cityTemperature == null) {
             $this->command->getOutput()->error('You have not entered a city temperature');
         }
-        CityTemperatures::create([
-            'city' => $city,
-            'temperature' => $cityTemperature,
-        ]);
 
-        $this->command->getOutput()->info("You have successfully added city $city and a temperature $cityTemperature");
+        if (CityTemperatures::where('city', $city)->exists()) {
+            $this->command->getOutput()->error('City already exists');
+        } else {
+            CityTemperatures::create([
+                'city' => $city,
+                'temperature' => $cityTemperature,
+            ]);
+
+            $this->command->getOutput()->info("You have successfully added city $city and a temperature $cityTemperature");
+
+        }
+
 
     }
 }
