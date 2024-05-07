@@ -10,6 +10,7 @@ class CityTemperatures extends Model
     use HasFactory;
 
     protected $table = 'city_temperatures';
+    
     protected $fillable = ([
        'city', 'temperature',
     ]);
