@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityTemperaturesController;
+use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('forecast/{city}', [ForecastController::class, 'forecast'])->name('forecast');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
