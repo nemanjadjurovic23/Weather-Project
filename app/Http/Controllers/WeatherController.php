@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CityTemperatures;
+use App\Models\WeatherModel;
 use Illuminate\Http\Request;
 
-class CityTemperaturesController extends Controller
+class WeatherController extends Controller
 {
     public function addCity()
     {
@@ -19,8 +19,8 @@ class CityTemperaturesController extends Controller
             'temperature' => 'required|integer'
         ]);
 
-        CityTemperatures::create([
-           'city' => $request->get('city'),
+        WeatherModel::create([
+            'city' => $request->get('city'),
             'temperature' => $request->get('temperature'),
         ]);
 
@@ -29,16 +29,16 @@ class CityTemperaturesController extends Controller
 
     public function allCities()
     {
-        $allCities = CityTemperatures::all();
+        $allCities = WeatherModel::all();
         return view('all-cities', compact('allCities'));
     }
 
-    public function editCity(CityTemperatures $cityTemperatures)
+    public function editCity(WeatherModel $cityTemperatures)
     {
         return view('edit-city', compact('cityTemperatures'));
     }
 
-    public function updateCity(Request $request, CityTemperatures $cityTemperatures)
+    public function updateCity(Request $request, WeatherModel $cityTemperatures)
     {
         $cityTemperatures->update([
             'city' => $request->get('city'),
@@ -50,7 +50,7 @@ class CityTemperaturesController extends Controller
 
     public function deleteCity($cityTemperatures)
     {
-        $city = CityTemperatures::where(['id' => $cityTemperatures])->first();
+        $city = WeatherModel::where(['id' => $cityTemperatures])->first();
 
         if ($city == null) {
             die('City not found');

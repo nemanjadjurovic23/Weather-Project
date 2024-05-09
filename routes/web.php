@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\CityTemperaturesController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('forecast/{city}', [ForecastController::class, 'forecast'])->name('forecast');
+Route::get('/forecast/{city}', [ForecastController::class, 'forecast'])->name('forecast');
+Route::get('/forecasts/', [ForecastController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,12 +25,12 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
 
-   Route::get('/add-city', [CityTemperaturesController::class, 'addCity'])->name('addCity');
-   Route::post('/save-city', [CityTemperaturesController::class, 'saveCity'])->name('saveCity');
-   Route::get('/city-edit/{cityTemperatures}', [CityTemperaturesController::class, 'editCity'])->name('editCity');
-   Route::get('/all-cities', [CityTemperaturesController::class, 'allCities'])->name('allCities');
-   Route::put('/update-city/{cityTemperatures}', [CityTemperaturesController::class, 'updateCity'])->name('updateCity');
-   Route::get('/city-delete/{cityTemperatures}', [CityTemperaturesController::class, 'deleteCity'])->name('deleteCity');
+   Route::get('/add-city', [WeatherController::class, 'addCity'])->name('addCity');
+   Route::post('/save-city', [WeatherController::class, 'saveCity'])->name('saveCity');
+   Route::get('/city-edit/{cityTemperatures}', [WeatherController::class, 'editCity'])->name('editCity');
+   Route::get('/all-cities', [WeatherController::class, 'allCities'])->name('allCities');
+   Route::put('/update-city/{cityTemperatures}', [WeatherController::class, 'updateCity'])->name('updateCity');
+   Route::get('/city-delete/{cityTemperatures}', [WeatherController::class, 'deleteCity'])->name('deleteCity');
 });
 
 require __DIR__.'/auth.php';
