@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Cities;
 use App\Models\Forecasts;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +22,7 @@ class ForecastsSeeder extends Seeder
                 Forecasts::create([
                     'city_id' => $city->id,
                     'temperature' => rand(10, 30),
-                    'date' => now()->subDays(rand(1, 365)),
+                    'date' => Carbon::now()->addDays(rand(1, 30))
                 ]);
             }
         }

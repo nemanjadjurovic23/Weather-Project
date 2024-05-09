@@ -17,6 +17,8 @@ return new class extends Migration
             $table->float('temperature');
             $table->date('date');
             $table->timestamps();
+
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 
