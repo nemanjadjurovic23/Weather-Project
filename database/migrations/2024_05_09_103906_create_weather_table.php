@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id');
             $table->integer('temperature');
             $table->timestamps();
+
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 
