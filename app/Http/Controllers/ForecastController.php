@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cities;
+use App\Models\Forecasts;
 use Illuminate\Http\Request;
 
 class ForecastController extends Controller
@@ -20,5 +22,13 @@ class ForecastController extends Controller
         }
 
         dd($cities[$city]);
+    }
+
+    public function index()
+    {
+        $cities = Cities::with('forecasts')->get();
+        $forecasts = Forecasts::with('city')->get();
+
+        return view('forecast', compact('cities', 'forecasts'));
     }
 }
