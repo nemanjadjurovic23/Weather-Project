@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="city-name">City name</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" name="city"
-                       value="{{ $cityTemperatures->city }}" required>
+                       value="{{ $cityTemperatures->name }}" required>
             </div>
             <div class="form-group">
                 <label for="temperature">Temperature</label>

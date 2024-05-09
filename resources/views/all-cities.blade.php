@@ -10,7 +10,7 @@
                 @foreach($allCities as $city)
                     <div class="card mt-4">
                         <div class="card-body text-center">
-                            <h4>{{ $city->city->name }}</h4>
+                            <h4>{{ $city->city_id }}</h4>
                             <h5>{{ $city->temperature }} °C</h5>
                             <a class="btn btn-danger" href="{{ route('deleteCity', $city->id) }}">Delete</a>
                             <a class="btn btn-success" href="{{ route('editCity', $city->id) }}">Edit</a>

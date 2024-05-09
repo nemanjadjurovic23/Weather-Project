@@ -10,7 +10,7 @@
                 <div class="card mt-4 mb-4">
                     <div class="card-body">
                         <h4>Add City</h4>
-                        <form method="POST" action="/admin/save-city">
+                        <form method="POST" action="{{ route('saveCity') }}">
                             @csrf
                             @if($errors->all->any())
                                 @foreach($errors as $error)

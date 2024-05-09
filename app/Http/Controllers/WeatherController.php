@@ -55,7 +55,6 @@ class WeatherController extends Controller
         if ($city == null) {
             die('City not found');
         }
-
         $city->delete();
         return redirect()->route('allCities')->with("success", "Successfully deleted City");
     }

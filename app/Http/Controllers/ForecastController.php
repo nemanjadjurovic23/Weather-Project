@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cities;
 use App\Models\Forecasts;
-use Illuminate\Http\Request;
 
 class ForecastController extends Controller
 {
