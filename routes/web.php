@@ -12,6 +12,7 @@ Route::get('/', function () {
 
 Route::get('/forecast/{city}', [ForecastController::class, 'forecast'])->name('forecast');
 Route::get('/forecasts/', [ForecastController::class, 'index']);
+Route::get('/weather', [WeatherController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

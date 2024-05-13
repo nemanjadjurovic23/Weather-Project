@@ -14,4 +14,9 @@ class Cities extends Model
     protected $fillable = ([
         'name',
     ]);
+
+    public function forecasts()
+    {
+        return $this->hasMany(Forecasts::class);
+    }
 }

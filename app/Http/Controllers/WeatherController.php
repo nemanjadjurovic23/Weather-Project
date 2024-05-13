@@ -58,4 +58,12 @@ class WeatherController extends Controller
         $city->delete();
         return redirect()->route('allCities')->with("success", "Successfully deleted City");
     }
+
+    public function index()
+    {
+        $weathers = WeatherModel::all();
+
+        return view('weather', compact('weathers'));
+    }
+
 }

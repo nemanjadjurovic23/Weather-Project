@@ -25,9 +25,14 @@ class ForecastController extends Controller
 
     public function index()
     {
-        $cities = Cities::with('forecasts')->get();
-        $forecasts = Forecasts::with('city')->get();
+        $forecasts = Forecasts::all();
 
-        return view('forecast', compact('cities', 'forecasts'));
+        return view('forecast', compact('forecasts'));
+    }
+
+    public function show($id)
+    {
+        $city = Cities::with('forecasts')->find($id);
+        return view('forecast', compact('city'));
     }
 }
