@@ -10,8 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/forecast/{city}', [ForecastController::class, 'forecast'])->name('forecast');
-Route::get('/forecasts/', [ForecastController::class, 'index']);
+Route::get('/forecast/{city:name}', [ForecastController::class, 'index'])->name('forecast');
+//Route::get('/forecasts/', [ForecastController::class, 'index']);
 Route::get('/weather', [WeatherController::class, 'index']);
 
 Route::get('/dashboard', function () {
