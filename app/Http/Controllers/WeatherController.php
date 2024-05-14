@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cities;
 use App\Models\WeatherModel;
 use Illuminate\Http\Request;
 
@@ -64,6 +65,13 @@ class WeatherController extends Controller
         $weathers = WeatherModel::all();
 
         return view('weather', compact('weathers'));
+    }
+
+    public function addWeather(Cities $city)
+    {
+        $weathers = WeatherModel::all();
+
+        return view('admin/add-weather', compact('weathers', 'city'));
     }
 
 }
