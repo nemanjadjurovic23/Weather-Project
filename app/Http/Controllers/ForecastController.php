@@ -10,9 +10,7 @@ class ForecastController extends Controller
 
     public function index(Cities $city)
     {
-        $forecasts = Forecasts::where(['city_id' => $city->id])->get();
-
-        return view('forecast', compact('forecasts'));
+        return view('forecast', compact('city'));
     }
 
 //    public function show($id)
