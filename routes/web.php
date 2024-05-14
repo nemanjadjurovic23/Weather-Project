@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminWeatherController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeatherController;
@@ -32,6 +33,10 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
    Route::get('/all-cities', [WeatherController::class, 'allCities'])->name('allCities');
    Route::put('/update-city/{cityTemperatures}', [WeatherController::class, 'updateCity'])->name('updateCity');
    Route::get('/city-delete/{cityTemperatures}', [WeatherController::class, 'deleteCity'])->name('deleteCity');
+
+   Route::get('/add-weather', [WeatherController::class, 'addWeather'])->name('addWeather');
+
+   Route::post('/weather/update', [AdminWeatherController::class, 'updateWeather'])->name('updateWeather');
 });
 
 require __DIR__.'/auth.php';
