@@ -37,6 +37,9 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
    Route::get('/add-weather', [WeatherController::class, 'addWeather'])->name('addWeather');
 
    Route::post('/weather/update', [AdminWeatherController::class, 'updateWeather'])->name('updateWeather');
+
+   Route::get('/forecast', [ForecastController::class, 'addForecastForm'])->name('addForecastForm');
+   Route::post('/forecast', [ForecastController::class, 'addForecast'])->name('addForecast');
 });
 
 require __DIR__.'/auth.php';

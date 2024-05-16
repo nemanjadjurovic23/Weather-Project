@@ -21,4 +21,5 @@ class Forecasts extends Model
     {
         return $this->hasOne(Cities::class, 'id', 'city_id');
     }
+
 }
