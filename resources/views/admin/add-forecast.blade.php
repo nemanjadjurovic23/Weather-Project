@@ -52,6 +52,7 @@
                             <li class="list-group-item">{{ $forecast->date }} -
                                 <i class="fa-solid {{ $icon }}"></i>
                                 <span style="color: {{ $boja }};">{{ $forecast->temperature }}</span>
+                                - {{ $forecast->probability }}%
                             </li>
                         @endforeach
                     </ul>

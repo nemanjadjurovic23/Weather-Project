@@ -9,6 +9,7 @@ class ForecastHelper
         'rainy' => 'fa-cloud-showers-heavy',
         'snowy' => 'fa-snowflake',
         'sunny' => 'fa-sun',
+        'cloudy' => 'fa-cloud'
     ];
     public static function getIconByWeatherType($type)
     {

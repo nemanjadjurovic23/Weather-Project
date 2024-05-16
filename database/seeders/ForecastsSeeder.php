@@ -17,17 +17,27 @@ class ForecastsSeeder extends Seeder
         $cities = Cities::all();
 
         foreach ($cities as $city) {
+
             for ($i = 0; $i < 5; $i++) {
-                $weatherType = Forecasts::WEATHERS[rand(0, 2)];
+                $weatherType = Forecasts::WEATHERS[rand(0, 3)];
                 $probability = null;
 
-                if ($weatherType == 'rainy' || $weatherType == 'snowy') {
+                if ($weatherType == 'rainy') {
+                    $lastTemperature = rand(-10, 50);
                     $probability = rand(1, 100);
+                } else if ($weatherType == 'snowy') {
+                    $lastTemperature = rand(1, -20);
+                    $probability = rand(1, 100);
+                } else if ($weatherType == 'cloudy') {
+                    $lastTemperature = rand(-20, 15);
+                    $probability = rand(1, 100);
+                } else if ($weatherType == 'sunny') {
+                    $lastTemperature = rand(-20, 50);
                 }
 
                 Forecasts::create([
                     'city_id' => $city->id,
-                    'temperature' => rand(10, 30),
+                    'temperature' => $lastTemperature,
                     'date' => Carbon::now()->addDays(rand(1, 30)),
                     'weather_type' => $weatherType,
                     'probability' => $probability,
