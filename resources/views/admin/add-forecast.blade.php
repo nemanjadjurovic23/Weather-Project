@@ -1,3 +1,4 @@
+@php use App\Http\ForecastHelper; @endphp
 @section('title', 'Add Forecast')
 
 @extends('layout')
@@ -27,7 +28,11 @@
             <h5>{{ $city->name }}</h5>
             <ul>
                 @foreach($city->forecasts as $forecast)
-                    <li>{{ $forecast->date }} - {{ $forecast->temperature }}</li>
+
+                    @php $boja = ForecastHelper::getColorByTemperature($forecast->temperature) @endphp
+
+                    <li>{{ $forecast->date }} - <span style="color: {{ $boja }};">{{ $forecast->temperature }}</span>
+                    </li>
                 @endforeach
             </ul>
         @endforeach
