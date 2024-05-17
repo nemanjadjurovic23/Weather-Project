@@ -15,6 +15,7 @@ class ForecastsSeeder extends Seeder
     public function run(): void
     {
         $cities = Cities::all();
+        $lastTemperature = null;
 
         foreach ($cities as $city) {
 
@@ -22,15 +23,30 @@ class ForecastsSeeder extends Seeder
                 $weatherType = Forecasts::WEATHERS[rand(0, 3)];
                 $probability = rand(1, 100);
 
-                if ($weatherType == 'rainy') {
-                    $lastTemperature = rand(-10, 50);
-                } else if ($weatherType == 'snowy') {
-                    $lastTemperature = rand(1, -20);
-                } else if ($weatherType == 'cloudy') {
-                    $lastTemperature = rand(-20, 15);
-                } else if ($weatherType == 'sunny') {
-                    $lastTemperature = rand(-20, 50);
-                    $probability = 0;
+
+                if ($i == 0) {
+                    if ($weatherType == 'rainy') {
+                        $lastTemperature = rand(-10, 50);
+                    } else if ($weatherType == 'snowy') {
+                        $lastTemperature = rand(1, -20);
+                    } else if ($weatherType == 'cloudy') {
+                        $lastTemperature = rand(-20, 15);
+                    } else if ($weatherType == 'sunny') {
+                        $lastTemperature = rand(-20, 50);
+                        $probability = 0;
+                    }
+                } else {
+                    $changeTemperature = rand(-5, 5);
+                    $lastTemperature += $changeTemperature;
+                    if ($lastTemperature >= -10 && $lastTemperature <= 50) {
+                        $weatherType = 'rainy';
+                    } else if ($lastTemperature >= -20 && $lastTemperature < 1) {
+                        $weatherType = 'snowy';
+                    } else if ($lastTemperature >= -20 && $lastTemperature < 15) {
+                        $weatherType = 'cloudy';
+                    } else if ($lastTemperature >= -20 && $lastTemperature < 100) {
+                        $weatherType = 'sunny';
+                    }
                 }
 
                 Forecasts::create([
