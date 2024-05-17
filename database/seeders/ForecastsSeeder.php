@@ -40,11 +40,11 @@ class ForecastsSeeder extends Seeder
                     $lastTemperature += $changeTemperature;
                     if ($lastTemperature >= -10 && $lastTemperature <= 50) {
                         $weatherType = 'rainy';
-                    } else if ($lastTemperature >= -20 && $lastTemperature < 1) {
+                    } else if ($lastTemperature <= 1) {
                         $weatherType = 'snowy';
                     } else if ($lastTemperature >= -20 && $lastTemperature < 15) {
                         $weatherType = 'cloudy';
-                    } else if ($lastTemperature >= -20 && $lastTemperature < 100) {
+                    } else if ($lastTemperature >= -20) {
                         $weatherType = 'sunny';
                     }
                 }
