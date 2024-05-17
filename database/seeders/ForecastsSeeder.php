@@ -20,19 +20,17 @@ class ForecastsSeeder extends Seeder
 
             for ($i = 0; $i < 5; $i++) {
                 $weatherType = Forecasts::WEATHERS[rand(0, 3)];
-                $probability = null;
+                $probability = rand(1, 100);
 
                 if ($weatherType == 'rainy') {
                     $lastTemperature = rand(-10, 50);
-                    $probability = rand(1, 100);
                 } else if ($weatherType == 'snowy') {
                     $lastTemperature = rand(1, -20);
-                    $probability = rand(1, 100);
                 } else if ($weatherType == 'cloudy') {
                     $lastTemperature = rand(-20, 15);
-                    $probability = rand(1, 100);
                 } else if ($weatherType == 'sunny') {
                     $lastTemperature = rand(-20, 50);
+                    $probability = 0;
                 }
 
                 Forecasts::create([
