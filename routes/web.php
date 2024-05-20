@@ -7,17 +7,17 @@ use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+
+Route::get('/forecast/search', [ForecastController::class, 'search'])->name('forecast.search');
 
 Route::get('/forecast/{city:name}', [ForecastController::class, 'index'])->name('forecast');
-//Route::get('/forecasts/', [ForecastController::class, 'index']);
 Route::get('/weather', [WeatherController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

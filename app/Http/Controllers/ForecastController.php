@@ -42,4 +42,17 @@ class ForecastController extends Controller
 
         return view('admin/add-forecast', compact('cities', 'forecasts'));
     }
+
+    public function search(Request $request)
+    {
+        $cityName = $request->get('city');
+
+        $cities = Cities::with('todaysForecast')->where("name", "LIKE", "%$cityName%")->get();
+
+        if (count($cities) == 0) {
+            return redirect()->back()->with('error', 'City not found');
+        }
+
+        return view('search_results', compact('cities'));
+    }
 }

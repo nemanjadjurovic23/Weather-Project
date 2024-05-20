@@ -26,4 +26,6 @@ class CitiesSeeder extends Seeder
 
         $this->command->getOutput()->progressFinish();
     }
+
+
 }

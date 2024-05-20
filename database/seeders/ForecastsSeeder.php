@@ -23,7 +23,6 @@ class ForecastsSeeder extends Seeder
                 $weatherType = Forecasts::WEATHERS[rand(0, 3)];
                 $probability = rand(1, 100);
 
-
                 if ($i == 0) {
                     if ($weatherType == 'rainy') {
                         $lastTemperature = rand(-10, 50);
@@ -52,7 +51,7 @@ class ForecastsSeeder extends Seeder
                 Forecasts::create([
                     'city_id' => $city->id,
                     'temperature' => $lastTemperature,
-                    'date' => Carbon::now()->addDays(rand(1, 30)),
+                    'date' => Carbon::now()->addDays($i),
                     'weather_type' => $weatherType,
                     'probability' => $probability,
                 ]);
