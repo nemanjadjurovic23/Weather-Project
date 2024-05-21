@@ -37,7 +37,7 @@ class ForecastController extends Controller
 
     public function addForecastForm()
     {
-        $cities = Cities::all();
+        $cities = Cities::with('forecasts')->get();
         $forecasts = Forecasts::WEATHERS;
 
         return view('admin/add-forecast', compact('cities', 'forecasts'));

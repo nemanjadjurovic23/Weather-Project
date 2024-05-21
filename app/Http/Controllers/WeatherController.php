@@ -30,7 +30,7 @@ class WeatherController extends Controller
 
     public function allCities()
     {
-        $allCities = WeatherModel::all();
+        $allCities = WeatherModel::with('city')->get();
         return view('all-cities', compact('allCities'));
     }
 
@@ -51,7 +51,7 @@ class WeatherController extends Controller
 
     public function deleteCity($cityTemperatures)
     {
-        $city = WeatherModel::where(['id' => $cityTemperatures])->first();
+        $city = WeatherModel::with('city')->where(['id' => $cityTemperatures])->first();
 
         if ($city == null) {
             die('City not found');
@@ -62,14 +62,14 @@ class WeatherController extends Controller
 
     public function index()
     {
-        $weathers = WeatherModel::all();
+        $weathers = WeatherModel::with('city')->get();
 
         return view('weather', compact('weathers'));
     }
 
     public function addWeather(Cities $city)
     {
-        $weathers = WeatherModel::all();
+        $weathers = WeatherModel::with('city')->get();
 
         return view('admin/add-weather', compact('weathers', 'city'));
     }
