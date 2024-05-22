@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cities;
 use App\Models\Forecasts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ForecastController extends Controller
 {
@@ -53,6 +54,12 @@ class ForecastController extends Controller
             return redirect()->back()->with('error', 'City not found');
         }
 
-        return view('search_results', compact('cities'));
+        $userFavourites = [];
+        if(Auth::check()) {
+            $userFavourites = Auth::user()->cityFavourites;
+            $userFavourites = $userFavourites->pluck('city_id')->toArray();
+        }
+
+        return view('search_results', compact('cities', 'userFavourites'));
     }
 }

@@ -14,6 +14,8 @@ Route::get('/forecast/search', [ForecastController::class, 'search'])->name('for
 Route::get('/forecast/{city:name}', [ForecastController::class, 'index'])->name('forecast');
 Route::get('/weather', [WeatherController::class, 'index']);
 
+Route::get('/user-cities/favourite/{city}', [\App\Http\Controllers\UserCitiesController::class, 'favourite'])->name('user-cities.favourite');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
