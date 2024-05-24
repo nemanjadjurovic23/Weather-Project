@@ -18,6 +18,16 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
+            @foreach($userFavouriteCities as $userFavourite)
+                @php
+                    $boja = ForecastHelper::getColorByTemperature($userFavourite->city->todaysForecast->temperature);
+                    $ikonica = ForecastHelper::getIconByWeatherType($userFavourite->city->todaysForecast->weather_type);
+                @endphp
+
+                <p class="btn btn-primary mt-4">
+                    {{ $userFavourite->city->name }} - ( {{$userFavourite->city->todaysForecast->temperature }}°C ) <i class="fa-solid {{ $ikonica }}"></i>
+                </p>
+            @endforeach
     </div>
 @endsection
 

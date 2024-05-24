@@ -18,8 +18,9 @@
                             <h5 class="card-title">{{ $city->name }}</h5>
 
                             @if(in_array($city->id, $userFavourites))
-                                <a class="btn btn-primary" href="{{ route('user-cities.favourite', ['city' => $city->id]) }}">
-                                    <i class="fa-solid fa-heart"></i>                                </a>
+                                <a class="btn btn-primary" href="{{ route('user-cities.unfavourite', ['city' => $city->id]) }}">
+                                    <i class="fa-solid fa-heart"></i>
+                                </a>
                             @else
                                 <a class="btn btn-primary" href="{{ route('user-cities.favourite', ['city' => $city->id]) }}">
                                     <i class="fa-regular fa-heart"></i>

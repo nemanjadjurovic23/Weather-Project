@@ -3,18 +3,21 @@
 use App\Http\Controllers\AdminWeatherController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserCitiesController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', [UserCitiesController::class, 'favouritesCities'])->name('user.favouritesCities');
 
 Route::get('/forecast/search', [ForecastController::class, 'search'])->name('forecast.search');
 
 Route::get('/forecast/{city:name}', [ForecastController::class, 'index'])->name('forecast');
 Route::get('/weather', [WeatherController::class, 'index']);
 
-Route::get('/user-cities/favourite/{city}', [\App\Http\Controllers\UserCitiesController::class, 'favourite'])->name('user-cities.favourite');
+Route::get('/user-cities/favourite/{city}', [UserCitiesController::class, 'favourite'])->name('user-cities.favourite');
+Route::get('/user-cities/unfavourite/{city}', [UserCitiesController::class, 'unfavourite'])->name('user-cities.unfavourite');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
