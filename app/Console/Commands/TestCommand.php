@@ -26,23 +26,18 @@ class TestCommand extends Command
      */
     public function handle()
     {
-//        $response = Http::get('https://reqres.in/api/users?page=2');
-//        dd($response->json());
-
-//        $response = Http::post('https://reqres.in/api/create', [
-//            'name' => 'Nemanja',
-//            'job' => 'programer'
-//        ]);
-//        dd($response->json());
-
-        $city = $this->argument('city');
-
-        $response = Http::get('http://api.weatherapi.com/v1/current.json', [
-            'key' => 'b3d7912e8b9e4cecb82101913242705',
-            'q' => $city,
-            'aqi' => 'no',
+        $response = Http::get(env('WEATHER_API_URL').'v1/forecast.json', [
+            'key' => env("WEATHER_API_KEY"),
+            'q' => $this->argument('city'),
+            'api' => 'no',
+            'days' => 1
         ]);
 
-        dd($response->json());
+        $jsonResponse = $response->json();
+        if(isset($jsonResponse['error'])) {
+            $this->output->error($jsonResponse['error']['message']);
+        }
+
+        dd($jsonResponse);
     }
 }
