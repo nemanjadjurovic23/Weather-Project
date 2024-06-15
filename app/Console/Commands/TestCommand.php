@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Cities;
+use App\Models\Forecasts;
+use App\Services\WeatherService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
 class TestCommand extends Command
 {
@@ -26,18 +28,40 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $response = Http::get(env('WEATHER_API_URL').'v1/forecast.json', [
-            'key' => env("WEATHER_API_KEY"),
-            'q' => $this->argument('city'),
-            'api' => 'no',
-            'days' => 1
-        ]);
+        $city = $this->argument('city');
+        $dbCity = Cities::where(['name' => $city])->first();
 
-        $jsonResponse = $response->json();
+        if ($dbCity == null) {
+            Cities::create(['name' => $city]);
+        }
+
+        $weatherService = new WeatherService();
+        $jsonResponse = $weatherService->getForecast($city);
+
         if(isset($jsonResponse['error'])) {
             $this->output->error($jsonResponse['error']['message']);
         }
 
-        dd($jsonResponse);
+        if ($dbCity->todaysForecast != null) {
+            $this->output->comment('Command finished');
+            return;
+        }
+
+        $forecastDay = $jsonResponse['forecast']['forecastday'][0];
+        $forecastDate = $forecastDay['date'];
+        $temperature = $forecastDay['day']['avgtemp_c'];
+        $weatherType = $forecastDay['day']['condition']['text'];
+        $probability = $forecastDay['day']['daily_chance_of_rain'];
+
+        $forecast = [
+            'city_id' => $dbCity->id,
+            'temperature' => $temperature,
+            'date' => $forecastDate,
+            'weather_type' => strtolower($weatherType),
+            'probability' => $probability,
+        ];
+
+        Forecasts::create($forecast);
+        $this->output->comment('Added new forecast');
     }
 }

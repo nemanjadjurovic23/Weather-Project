@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cities;
 use App\Models\Forecasts;
+use App\Services\WeatherService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class ForecastController extends Controller
@@ -12,7 +14,13 @@ class ForecastController extends Controller
 
     public function index(Cities $city)
     {
-        return view('forecast', compact('city'));
+        $weatherService = new WeatherService();
+        $jsonResponse = $weatherService->getSunsetAndSunrise($city->name);
+
+        $sunrise = $jsonResponse['astronomy']['astro']['sunrise'];
+        $sunset = $jsonResponse['astronomy']['astro']['sunset'];
+
+        return view('forecast', compact('city', 'sunrise', 'sunset'));
     }
 
     public function addForecast(Request $request)
@@ -47,6 +55,8 @@ class ForecastController extends Controller
     public function search(Request $request)
     {
         $cityName = $request->get('city');
+
+        Artisan::call('app:test-command', ['city' => $cityName]);
 
         $cities = Cities::with('todaysForecast')->where("name", "LIKE", "%$cityName%")->get();
 
